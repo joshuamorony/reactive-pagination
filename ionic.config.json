@@ -1,0 +1,7 @@
+{
+  "name": "reactive-pagination",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
