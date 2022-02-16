@@ -1,20 +1,31 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
+    <ion-title *ngIf="currentPage$ | async as currentPage">
+      Current page: {{currentPage}}
     </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="prevPage()">Prev</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="nextPage()">Next</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ng-container *ngIf="currentPageData$ | async as passengers; else loading">
+    <ion-list>
+      <ion-item *ngFor="let passenger of passengers">
+        <ion-label>{{passenger.name}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ng-template #loading>
+    <ion-list>
+      <ion-item *ngFor="let arr of [1, 2, 3, 4]">
+        <ion-label><ion-skeleton-text animated></ion-skeleton-text></ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-template>
 </ion-content>
